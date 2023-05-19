@@ -2,7 +2,7 @@ package com.example.collectionsandsets.service;
 
 import com.example.collectionsandsets.model.Employee;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface EmployeeService {
 
@@ -12,5 +12,5 @@ public interface EmployeeService {
 
     Employee find(String firstName, String lastName);
 
-    List<Employee> findAll();
+    Collection<Employee> findAll();
 }
