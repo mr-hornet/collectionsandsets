@@ -3,6 +3,7 @@ package com.example.collectionsandsets.service;
 import com.example.collectionsandsets.model.Employee;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface EmployeeService {
 

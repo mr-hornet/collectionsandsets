@@ -13,6 +13,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public EmployeeServiceImpl() {
         this.employees = new HashMap<>();
+        add("Ken", "Wood");
+        add("Stiven", "Broke");
+        add("Pum", "Boob");
+        add("Mark", "Wrer");
     }
 
     @Override
