@@ -1,17 +1,23 @@
-package com.example.collectionsandsets.service;
+package com.example.collectionsandsets.service.impl;
 
 import com.example.collectionsandsets.exceptions.EmployeeAlreadyAddedException;
 import com.example.collectionsandsets.model.Employee;
+import com.example.collectionsandsets.service.EmployeeService;
+import com.example.collectionsandsets.service.EmployeeValidationService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final Map<String, Employee> employees;
+    private final EmployeeValidationService employeeValidationService;
 
-    public EmployeeServiceImpl() {
+    public EmployeeServiceImpl(EmployeeValidationService employeeValidationService) {
+        this.employeeValidationService = employeeValidationService;
         this.employees = new HashMap<>();
         add("Ken", "Wood");
         add("Stiven", "Broke");
@@ -21,7 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+        employeeValidationService.validate(firstName, lastName);
+        Employee employee = new Employee(capitalize(firstName), capitalize(lastName));
 
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();

@@ -1,7 +1,9 @@
-package com.example.collectionsandsets.service;
+package com.example.collectionsandsets.service.impl;
 
 import com.example.collectionsandsets.exceptions.EmployeeNotFoundException;
 import com.example.collectionsandsets.model.Employee;
+import com.example.collectionsandsets.service.DepartmentService;
+import com.example.collectionsandsets.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
