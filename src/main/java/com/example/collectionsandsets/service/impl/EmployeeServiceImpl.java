@@ -1,6 +1,7 @@
 package com.example.collectionsandsets.service.impl;
 
 import com.example.collectionsandsets.exceptions.EmployeeAlreadyAddedException;
+import com.example.collectionsandsets.exceptions.EmployeeNotFoundException;
 import com.example.collectionsandsets.model.Employee;
 import com.example.collectionsandsets.service.EmployeeService;
 import com.example.collectionsandsets.service.EmployeeValidationService;
@@ -19,10 +20,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeServiceImpl(EmployeeValidationService employeeValidationService) {
         this.employeeValidationService = employeeValidationService;
         this.employees = new HashMap<>();
-        add("Ken", "Wood");
-        add("Stiven", "Broke");
-        add("Pum", "Boob");
-        add("Mark", "Wrer");
+//        add("Ken", "Wood");
+//        add("Stiven", "Broke");
+//        add("Pum", "Boob");
+//        add("Mark", "Wrer");
     }
 
     @Override
@@ -39,12 +40,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    public Employee add(String firstName, String lastName, int salary, int department) {
+        employeeValidationService.validate(firstName, lastName);
+        Employee employee = new Employee(capitalize(firstName), capitalize(lastName), salary, department);
+
+        if (employees.containsKey(employee.getFullName())) {
+            throw new EmployeeAlreadyAddedException();
+        }
+
+        employees.put(employee.getFullName(), employee);
+
+        return employee;
+    }
+
     @Override
     public Employee remove(String firstName, String lastName) {
 
         Employee employee = new Employee(firstName, lastName);
         if (!employees.containsKey(employee.getFullName())) {
-            throw new EmployeeAlreadyAddedException();
+            throw new EmployeeNotFoundException();
         }
 
         employees.remove(employee.getFullName());
@@ -57,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employee = new Employee(firstName, lastName);
         if (!employees.containsKey(employee.getFullName())) {
-            throw new EmployeeAlreadyAddedException();
+            throw new EmployeeNotFoundException();
         }
         return employee;
     }

@@ -15,7 +15,7 @@ public class EmployeeValidationServiceImpl implements EmployeeValidationService 
     }
 
     private void validateName(String name) {
-        if (StringUtils.isBlank(name) || StringUtils.isAlpha(name)) {
+        if (StringUtils.isBlank(name) || !StringUtils.isAlpha(name)) {
             throw new InvalidEmployeeDataExeption("Неверное значение " + name);
         }
     }
