@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -42,7 +44,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return employeeService.findAll().stream()
                 .filter(e -> e.getDepartmentId() == departmentId)
                 .sorted(Comparator.comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -50,5 +52,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         return employeeService.findAll().stream()
                 .sorted(Comparator.comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
                 .collect(Collectors.groupingBy(Employee::getDepartmentId));
+    }
+
+    @Override
+    public Collection<Employee> findEmployeesByDepartment(int department) {
+        return employeeService.findAll().stream()
+                .filter(e -> e.getDepartmentId() == department)
+                .sorted(Comparator.comparing(Employee::getLastName).thenComparing(Employee::getFirstName))
+                .collect(toList());
     }
 }
